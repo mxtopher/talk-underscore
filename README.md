@@ -1,10 +1,8 @@
-## Talk template
+## Functional Programming using Underscore
 
-<img src="img/logo.jpg" />
+Cristopher Moreira da Silva @ [Avenue Code](http://www.avenuecode.com)
 
-Tiago Garcia @ [Avenue Code](http://www.avenuecode.com)
-
-*tgarcia@avenuecode.com* <!-- .element: class="feature" -->
+*csilva@avenuecode.com* <!-- .element: class="feature" -->
 
 Feb 11th, 2014
 
@@ -12,192 +10,592 @@ Feb 11th, 2014
 
 ## Agenda
 
- - The template
-  - Installing
-  - Working
-  - Deploying
- - Your talk
-  - Organization
-  - The DO's
-  - The DONT's
-  - Tips
+- First Impressions
+  - Quick quick sort
+  - Smart fibonacci
+
+- Why would I use it?
+
+- Functional Programming in a nutshell
 
 ----
 
 ## Agenda
 
- - Contributing
- - Learn more
- - Conclusion
- - Assignment
+- Functional Programming with Underscore
+  - Diping our toes
+  - Collection manipulation
+  - Object manipulation
+  - Function manipulation
+  - Bonus!!!
+
+- References
+
+- Challenges
 
 ---
 
 ## Prerequisites
 
-- Markdown
-- Reveal.js
-- Grunt
+- Intermediate Javascript level
+- Open Mind (:
 
 ---
 
-## The template
+## First Impressions
 
-1. The Avenue Code talk template is a responsive, web-based talk template.
-1. This template is based on [Reveal.JS](http://lab.hakim.se/reveal-js).
-1. All you need to do is to write your content in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
-1. There are some [Grunt](http://gruntjs.com) jobs to automatize the build process.
-1. It has <span class="feature">automatic code highlighting</span>, guessing the programming language you used.
-1. Once it is described in <span class="feature">README.md</span>, the talk contents will also be available as the repository description which is a common format for tutorials.
+- How can I implement quick sort?
+  - The Old way
+    - Do anyone remeber? Yeah, curse you partition...
+  - I have a better idea
 
 ----
 
-## Setting up your repo
+## Underscore Legible Implementation
 
-1. Sign in on GitHub
-1. Fork the repository <https://github.com/acbr/talk-template>
-1. Rename it to match your talk name (ex: <span class="feature">talk-design-patterns</span>)
-1. Clone this repository
-1. Navigate to its folder on the terminal
+```javascript
+var second_is_no_smaller_than_first = function(first, second) {
+  return second >= first;
+};
+var second_is_smaller_than_first = function(first, second) {
+  return second < first;
+};
 
-----
+var quick_sort = function(stuff) {
+  if(stuff.length <= 1) return stuff; //Boring part
 
-## Building and running
+  // these are values
+  var head = _.head(stuff);
+  var tail = _.tail(stuff);
 
-1. Install [Node.js](http://nodejs.org/)
-1. Install [Grunt](http://gruntjs.com/getting-started#installing-the-cli)
-1. On the repo folder, install the npm dependencies
-```sh
-$ npm install
+  // these are functions
+  var smaller_than_head =
+    _.partial(second_is_smaller_than_first, [head]);
+
+  var no_smaller_than_head =
+    _.partial(second_is_no_smaller_than_first, [head]);
+
+  // this is magic:
+
+  return (
+           // the guys before pivot, sorted
+           quick_sort(_.select(tail, smaller_than_head)).     
+           // the pivot
+           concat([head]).
+           // the guys after pivot, sorted
+           concat(quick_sort(_.select(tail, no_smaller_than_head)))
+         );
+};
 ```
-1. Build it, serve it and monitor source files for changes
-```sh
-$ grunt
-```
-1. Open <http://localhost:8000> to view your talk
-
-----
-
-## Working
-
-1. Open up <span class="feature">config.json</span> and fill your talk data such as title, author, email, date and description.
-1. Open up <span class="feature">src/README.md</span> file and write your talk in plain <span class="feature">Markdown</span>.
-1. In order to separate slides horizontally, use 3 dashes (---).
-1. In order to separate slides vertically, use 4 dashes (----).
-1. In order to call out attention, use the css class <span class="feature">feature</span>:
-```
-*WARNING* <!-- .element: class="feature" -->
-```
-```
-<span class="feature">WARNING</span>
-```
-1. For every change, grunt will rebuild your talk and all you need to do is to refresh your page.
-
-----
-
-## Deploying
-
-1. Make sure your build is not breaking.
-  - You should see <span class="feature">Done, without errors.</span> in the terminal.
-1. <span class="feature">git add</span>, <span class="feature">git commit</span> and <span class="feature">git push</span> to <span class="feature">gh-pages</span> branch.
-1. You should see your talk in an address like:
-  - http://<span class="feature">your-github-username</span>.github.io/<span class="feature">your-repo-name</span>
-  - Ex: <http://acbr.github.io/talk-template>
 
 ---
 
-## Your talk
+## Nice! I liked these weird methods!
 
- - Should last no more than 50 minutes, leave up to 10 minutes for questions.
- - Should not be too deep neither too superficial.
- - Give at least 3 reference links to be followed for further studies.
- - Give a challenge that would be solved using ideas that were covered on the talk.
- - It is ok to go a little bit far (forcing the attendee to do some research), but that should be optional.
+- What else can I do with them?
+  - How can I implement Fibonacci?
+- The "I know functions!" way
 
-----
-
-## Organization
-
- - 1st slide: the cover, featuring your talk name, your name, the lecture date and AC logo.
- - 2nd slide: the agenda, in topics.
- - 3nd slide: the prerequisites of your talk.
- - From 4th slide on: your content
-  - When content from the same topic doesn't fit on a slide -> grow it <span class="feature">VERTICALLY</span> by adding a slide below (----).
-  - When you finish a topic and will start a different one -> grow it <span class="feature">HORIZONTALLY</span> by adding a slide to the right (---).
- - The 3 last slides: Conclusion, Learn more (with the reference links) and Challenge.
+```javascript
+var fib_a = function(n){
+  return (n <= 2) ? 1 : (fib_a(n-1) + fib_a(n-2));
+};
+```
 
 ----
 
-## The DO's
+- The "I can loop too!" way
 
-1. <span class="feature">BE BALANCED BETWEEN THEORY AND PRACTICE</span>. Your target is keeping the subject interesting for everybody.
-1. <span class="feature">BE CONSISTENT</span>. Please watch some good screencasts in order to learn how to use your voice and conduct the talk.
-1. <span class="feature">BE POLITE</span>. Don't use slangs neither bad words.
-1. <span class="feature">BE OBJECTIVE</span>. Don't overexplain in such way you could cause confusion to your attendees.
-1. <span class="feature">KEEP THE FOCUS</span>. Off-topic discussions are ok, but only if it doesn't disturb the natural flow of your content.
-1. <span class="feature">BE PREPARED</span>. If you are going to use examples or live coding, make sure you have them all prepared beforehand.
-1. <span class="feature">TRAIN</span> your full talk at least once before your talk.
-
-----
-
-## The DONT's
-
-1. <span class="feature">DO NEVER SHOW PRIVATE CODE FROM THE CLIENT</span>. This is CRITICAL and can cause serious problems.
-1. <span class="feature">DON'T BE ARROGANT</span>. Be humble and don't focus the talk on yourself.
-1. <span class="feature">DON'T GENERALIZE</span>, specially stuff that you are not sure about.
-1. <span class="feature">DON'T MAKE UP DATA</span>. Base yourself on trustable references.
-1. <span class="feature">DON'T BE BORING</span>. Just be yourself. It is ok to joke around, but don't exaggerate.
+```javascript
+var fib_b = function(n){
+  if (n <= 2) return 1;
+  var old_guy;
+  var normal_guy = 1;
+  var new_guy    = 1;
+  for(var j = 3; j <= n; j++){
+    old_guy = normal_guy;
+    normal_guy = new_guy;
+    new_guy = old_guy + normal_guy; // calc new guy
+  }
+  return new_guy;
+};
+```
 
 ----
 
-## Tips
+- The "GOTTA CATCH'EM ALL" way (a.k.a memoization)
 
- - <span class="feature">ENJOY</span> your experience by creating the talk, because you will surely learn MUCH MORE than your attendees.
- - <span class="feature">BRING WATER</span> to drink while you present. You will certainly need it!
- - <span class="feature">BE OPEN</span> to receive questions and even criticism. You will learn a lot from them.
- - <span class="feature">ALWAYS</span> be polite when talking to your audience. This will always open doors for you.
- - People might come to you with questions and more complex cases after your talk. Consider it as a gift, it means you represent something good for them!
+```javascript
+var fib_cache = [NaN, 1, 1]
+var fib_c = function(n){
+  if(fib_cache[n] !== undefined) return fib_cache[n]
+  return fib_cache[n] = fib_c(n-1) + fib_c(n-2);
+}
+```
+
+- The "Today I don't feel like doing anything" way
+
+```javascript
+// WIN WIN!
+var win_memoize_use = _.memoize(function(n){
+  return (n <= 2) ? 1 : (win_memoize_use(n-1) + win_memoize_use(n-2));
+})
+```
 
 ---
 
-## Contributing
+## Awesome. But just why.
 
-Should you wish to contribute, please be welcome to!
+- Why would I want to use underscore to solve the problems _ I already solve _ ?
+  - Because it is awesome (:
+  - If you are using Backbone, you already have it. No more deps.
+  - It is modular and does not mess with any object prototype.
+  - Functional Programming has very powerful concepts that can be useful.
 
-1. Fork the repository <https://github.com/acbr/talk-template>
-1. Create a feature branch for your contribution
-```sh
-git checkout -b my-new-feature
+---
+
+## Functional Programming in a nutshell
+
+- Build your code around functions (verbs), instead of classes/objects (nouns)
+- Abuse of higher order functions. Abuse of function returning and/or manipulation. Avoid values manipulation(!)
+
+----
+
+## Functional Programming in a nutshell
+
+- You don't want to handle state. You don't want to worry about the time dimension.
+  - What is the state of this object WHEN I call this method?
+  - Should I call this method BEFORE OR AFTER this one?
+  - Is it SAFE to call this method twice?
+  - Is it safe to use this var after I passed it as a parameter to that weird function?
+
+----
+
+## Functional Programming in a nutshell
+
+- Avoid side effects: use pure functions
+  - You know that function that calculates the result, sets it in that property,
+    triggers that event that will be grabbed by (who? I don't remember) someone,
+    logs it and does a ajax to update the state on the server??? We all know.
+  - I dare you to call it twice.
+  - I double dare you to refactor it.
+  - I triple dare you to unit test it!!!
+
+----
+
+## Functional Programming in a nutshell
+
+- Don't think about 'how to achieve the result'. Think about 'how is the result defined'
+  - Think about relations, not steps.
+  - It is sometimes called declarative programming. In oposition to imperative programming
+
+---
+
+## Enemies of functional programming:
+- Conventional assignment, mutable variables.
+- Step definitions. Like do this, then do that, and if this then do that too.
+
+----
+
+## WHAT? NO ASSIGNMENTS, NO VARIABLES, NO ALGORITHMS?
+- Assigning new values to variables is keeping state. Keeping state is creating side effects AND messing with the TIME variable.
+- imperative algorithms are exactly the opposite of what functional programming says.
+
+----
+
+## So, what do you suggest?
+  - Create functions. Combine functions. Return functions.
+  - Return values. Don't set them.
+  - Try to set the value of a var only in it initialization (as a const.)
+
+----
+
+## It forces me to create a lot of small functions!!
+  - Yes. Javascrit has function scope. Small functions are basically enforced by definition (:
+  - Yes. Well defined, easy testable, IDEMPOTENT, no-side-effects-attached pretty boring functions.
+
+---
+
+## You didn't convince me. I want examples.
+- Let's go back to Underscore!
+
+----
+
+## Underscode
+- Functions for collection manipulation
+- Functions for Array  manipulation
+- Functions for Object manipulation
+- Functions for function manipulation
+- Bonus!
+
+----
+
+## Lets dip our toes
+- _.times
+  - FOR no more!
+
+```javascript
+(function(){
+  // I am creating a var for the loop here
+  for(var i = 0; i < 10; i++){
+    var a, b, c; // I am creating vars that I only use here.
+    //... Code follows 
+  }
+
+  // I can't create it again, we all know
+  for(i = 0; i < 8; i++){
+    // a, b and c are poluting here.
+  }
+
+  // And I can't get rid of them!!!
+  // ...
+})();
 ```
-1. Commit your changes
-```sh
-git commit -am 'Add some feature'
+
+----
+
+```javascript
+// First step: create inner functions
+(function(){
+  var do_weird_stuff_with = function(i){/*...*/};
+  var do_other_stuff_with_other = function(i){/*...*/};
+  // I am creating a var for the loop here
+  for(var i = 0; i < 10; i++){
+    do_weird_stuff_with(i);
+  }
+
+  // I can't create it again, we all know
+  for(i = 0; i < 8; i++){
+    do_other_stuff_with_other(i);
+  }
+
+  // Now only i polutes my namespace here
+  // ...
+})();
 ```
-1. Push to the branch
-```sh
-git push origin my-new-feature
+
+----
+
+```javascript
+// Times comes to save the day!
+(function(){
+  _.times(10, function(i){
+    do_weird_stuff_with(i);
+  });
+
+  _(8).times(function(i){
+    do_other_stuff_with_other(i);
+  });
+
+  // No side effects, no state manipulation, no var at all!
+})()
 ```
-1. Create a Pull Request
+
+- No much gain, ok. But we are getting the point.
+
+---
+
+## The might map
+
+- Maps a function in a collection, returns a collection
+- Indeed aliased as _collect_
+
+```javascript
+// Get the name, hp and number of types of all pokemons;
+var some_info = _(pokemons).map(function(pokemon){
+  return {name  : pokemon.name,
+          hp    : pokemon.stats.hp,
+          types : pokemon.type.length
+  };
+});
+
+// Get the male/female ratio for all pokemon
+var pokemons_with_sex = _(pokemons).filter(function(pokemon){
+  return !!pokemon.misc && !!pokemon.misc.sex &&
+         !!pokemon.misc.sex.male && !!pokemon.misc.sex.female;
+});
+var ratio = _(pokemons_with_sex).map(function(pokemon){
+  var sex = pokemon.misc.sex;
+  return {name: pokemon.name, ratio: sex.male / sex.female};
+});
+
+```
+
+----
+## Map cousin:
+
+- _.pluck
+
+```javascript
+// Get only name of all pokemons
+var pokenames = _(pokemons).pluck('name');
+```
+
+---
+
+## Filter: Guess what it does
+
+- Alias: select
+
+```javascript
+// Get all pokemons with hp higher than 70
+var beefy_pokemons = _(pokemons).filter(function(pokemon){
+  return pokemon.stats.hp > 70;
+});
+
+// Get all fire pokemons
+var fire_pokemons = _(pokemons).filter(function(pokemon){
+  return _(pokemon.type).include('fire');
+});
+```
+
+----
+
+## Filter cousins
+
+- _.where
+
+```javascript
+// Filter objects by an example
+// Get all pokemons called Baubasaur
+var no_misc_pokemons = _(pokemons).where({ name: 'Baubasaur' });
+
+// Get all pokemons with types ice and water
+// doesn't work: Compares with ===, so only works for basic times
+var no_misc_pokemons = _(pokemons).where({ type: ['Ice', 'Water'] });
+```
+
+- _.find, alias detect
+  - Returns only the first matching element
+
+- _.reject
+  - Inverse of filter
+
+----
+
+## Filter cousins
+
+- _.partition
+  - returns two arrays: The elements that satisfy in one and the elements that doesn't satisfy in other (works only for arrays)
+- _.without
+  - returns an array without the elements passed as parameters
+- _.compact
+  - removes all _falsy_ values from array
+
+---
+
+## Reduce: Fold all the values to a single one
+
+- Indeed, fold _is_ one alias for reduce
+
+```javascript
+// Summing all values in an array:
+_.reduce([1,2,3,4,5], function(a, b){return a + b});
+// The most lazy implementation of factorial in the world
+var fac = function(n){
+  _.reduce(_.tail(_.range(n+1)), function(a, b){return a * b});
+}
+// Getting the average hp of the water pokemons
+var water_pokemons = _.filter(pokemons, function(pokemon){
+  return _(pokemon.type).include('Water');
+});
+var one_more_pokemon_hp_to_the_sum = function(sum, pokemon){
+  return sum + pokemon.stats.hp;
+};
+var average = _.reduce(water_pokemons, one_more_pokemon_hp_to_the_sum, 0)/
+              water_pokemons.size();
+})
+```
+
+----
+
+## Reduce details
+
+- _.reduce(collection, function(memo, next_el){...}, start_value)
+  - reducer function must receive an aggregating memo and the next element.
+  - Reduce may have a start value for memo. If not passed, the starting value will be the collection's head.
+  - Reducer function may receive up to four arguments:
+    - function(memo, element, iteration_index, entire_collection)
+
+----
+
+## Reduce cousins
+
+- _.every, alias all
+ - naive implementation:
+
+```javascript
+_.every = function(collection, predicate){
+  return _.reduce(_.map(collection, predicate),
+                  function(a, b){ return a && b }
+  );
+}
+```
+
+- _.some, alias any
+ - naive implementation:
+
+```javascript
+_.some = function(collection, predicate){
+  return _.reduce(_.map(collection, predicate),
+                  function(a, b){ return a || b }
+  );
+}
+```
+
+----
+
+## Reduce cousins
+
+- _.max, min
+ - You can pass an evaluator function
+
+```javascript
+var pokemon_awesomeness_rate = function(pokemon){/*...*/};
+var most_awesome_pokemon = _.max(pokemons, pokemon_awesomeness_rate);
+```
+
+---
+
+## Gang of *By
+
+```javascript
+_(pokemons).groupBy('type');
+_(pokemons).groupBy(function(pokemon){pokemon.stats.hp});
+_(pokemons).indexBy('name');
+_(pokemons).indexBy(function(pokemon){pokemon.id + ": " + pokemon.name});
+_(pokemons).sortBy('name');
+_(pokemons).sortBy(pokemon_awesomeness_rate);
+_(pokemons).countBy(function(pokemon){return pokemon.type.length});
+_(pokemons).countBy(function(pokemon){return pokemon.type[0]});
+```
+
+---
+
+## Some other useful collections/array manipulation functions
+
+- shuffle
+- sample
+- head, first, take
+- tail, rest, drop
+- range
+- union, intersection, difference, uniq
+
+---
+
+## Object manipulation tricks
+
+- keys, values, pairs
+- pick, omit
+- clone
+- isEqual
+- Look the docs
+
+---
+
+##### Functions that receive functions and return functions that you can use to compose your functions
+
+- bind
+
+  - Binds a function to a context.
+  - Returns a new function. Remember, pure functions
+  - You can bind parameters too.
+
+```javascript
+var bauba = _(pokemon).where({name: 'Baubasaur'});
+var praise_pokemon = function(praise){return this.name + ", " + praise};
+var praise_bauba = _.bind(praise_pokemon, bauba, "you are the best!!");
+praise_bauba()
+```
+
+- Cousin bindAll: Tricky. Read the docs!
+
+----
+
+##### Functions that receive functions and return functions that you can use to compose your functions
+
+- partial
+
+  - As bind, but just for binding parameters
+
+```javascript
+var map_over_pokemons = _.partial(_.map, pokemons);
+var pokemon_images = map_over_pokemons(function(pokemon){return pokemon.img});
+
+var stronger_than_first_and_faster_than_second = function(first, second){
+  return _.filter(pokemons, function(pokemon){
+    return pokemon.stats.attack > first &&
+           pokemon.stats.speed  > second;
+  });
+};
+
+var stronger_than_50_and_faster_than = _.partial(
+  stronger_than_first_and_faster_than_second, 50
+);
+```
+
+----
+
+##### Functions that receive functions and return functions that you can use to compose your functions
+
+- Memoize
+  - Explained in the beggining. Returns a memoized version of the function.
+- Compose
+  - TODO
+
+---
+
+## Bonus!
+
+- Alternative sintaxes
+
+```javascript
+// Rubysts say
+_(collection).transform(base_function)
+// Pythonist say
+_.transform(collection, base_function)
+// They are _exactly_ the same
+```
+
+- Chaining sintax
+
+```javascript
+var name_and_stats = function(pokemon){
+  return _.pick(pokemon, 'name', 'stats');
+}
+
+_.chain(pokemon).filter(hp_higher_than_100).
+                 map(name_and_stats).
+                 orderBy('name').
+                 head(10).
+                 value();
+```
 
 ---
 
 ## Conclusion
 
-- This talk template rocks!
-- Your life should be easier now.
+- Underscore allows you to manipulate functions, objects and collections real simply and ellegantly
+- Underscore keeps the main concepts of functional programming
+- Try to keep them too, when possible
+  - Avoid handling state
+  - Avoid modifying your variables
+  - Use PURE FUNCTIONS
+  - Side effects are tainting. Isolate them
+  - Think about how is the solution defined, not how can you achieve it.
 
 ---
 
-## Learn more
+## Further reading
 
-1. [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-1. [Reveal.JS](https://github.com/hakimel/reveal.js)
-1. [Grunt](http://gruntjs.com)
+- [Underscore page](http://www.avenuecode.com)
+- [Underscore Annotated Source Code](http://www.avenuecode.com): surprisingly simple and small!
+- [Kingdom of verbs](http://www.avenuecode.com)
+- Async Library (TODO)
+- Learn Haskell (TODO)
 
----
+--- 
 
-## Challenge
+##Chalenges
 
-1. Make your awesome talk based on this template.
-1. Push it to a gh-pages branch on your GitHub account.
-1. Share the URL with the world!
+- Todo
