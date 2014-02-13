@@ -532,6 +532,10 @@ var stronger_than_first_and_faster_than_second = function(first, second){
 var stronger_than_50_and_faster_than = _.partial(
   stronger_than_first_and_faster_than_second, 50
 );
+
+var faster_than_50_and_stronger_than = _.partial(
+  stronger_than_first_and_faster_than_second, _, 50
+);
 ```
 
 ----
@@ -541,7 +545,24 @@ var stronger_than_50_and_faster_than = _.partial(
 - Memoize
   - Explained in the beggining. Returns a memoized version of the function.
 - Compose
-  - TODO
+  - Compose your functions with more ease
+
+```javascript
+var declare = function(fancy_word){
+  return "Pokemons are " + fancy_word + " awesome."
+};
+var change = function(sentence){
+  return sentence.replace(/Pokemons/, "Digimons").replace(/awesome/, "lame")
+};
+var yell = function(sentence){
+  return sentence.toUpperCase().replace('.', "!!!")
+};
+yell(change(declare('indeed')));
+//'DIGIMONS ARE INDEED LAME!!!'
+var yell_with_conviction = u.compose(yell, change, declare);
+yell_with_conviction('freaking');
+//'DIGIMONS ARE FREAKING LAME!!!'
+```
 
 ---
 
@@ -588,8 +609,8 @@ _.chain(pokemon).filter(hp_higher_than_100).
 
 ## Further reading
 
-- [Underscore page](http://www.avenuecode.com)
-- [Underscore Annotated Source Code](http://www.avenuecode.com): surprisingly simple and small!
+- [Underscore page](http://underscorejs.org/)
+- [Underscore Annotated Source Code](http://underscorejs.org/docs/underscore.html): surprisingly simple and small!
 - [Execution in the Kingdom of Nouns](http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html): A funny reading about Object Oriented vs Functional Programming.
 - [Async Library](https://github.com/caolan/async): "Async provides around 20 functions that include the usual 'functional' suspects (map, reduce, filter, each...) as well as some common patterns for asynchronous control flow (parallel, series, waterfall...)."
 
@@ -598,13 +619,14 @@ _.chain(pokemon).filter(hp_higher_than_100).
 
 ## Further reading
 
-  - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com): "the funkiest way to learn Haskell, which is the best functional programming language around.", but also a great way to better understand some concepts shown here, if you enjoyed it (: (Mostly chapters II and VI)
+  - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com): "the funkiest way to learn Haskell, which is the best functional programming language around.", but also a great way to better understand some concepts shown here, with a funny mood, if you enjoyed it (: (Mostly chapters II and VI)
 
 ---
 
 ## Challenges
 
 - Make me a pokedex!!!
+  - This pokemon database is available at https://raw2.github.com/mxtopher/talk-underscore/gh-pages/pokemon.js
   - I want to be able to search a pokemon by name (Ok, only perfect match you lazy guys!)
   - I want to be able to filter only pokemons with hp between X and Y
   - Same for whatever other attribute you consider important
