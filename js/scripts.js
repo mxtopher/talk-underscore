@@ -4598,7 +4598,7 @@ Reveal.addEventListener('ready', function(event){
   var footer = "";
   footer += "<div class=\"footer\">";
   footer += " <hr \/>";
-  footer += " <div>Talk template<\/div>";
+  footer += " <div>Functional Programming using Underscore<\/div>";
   footer += "<\/div>";
   footer += "<img src=\"https:\/\/s3.amazonaws.com\/media-p.slid.es\/uploads\/avenuecode\/images\/197088\/logo.png\" class=\"logo\" \/>";
 

@@ -1,10 +1,10 @@
-## Functional Programming using Underscore
+## @@title
 
-Cristopher Moreira da Silva @ [Avenue Code](http://www.avenuecode.com)
+@@author @ [Avenue Code](http://www.avenuecode.com)
 
-*csilva@avenuecode.com* <!-- .element: class="feature" -->
+@@email
 
-Feb 11th, 2014
+@@date
 
 ---
 
@@ -221,7 +221,7 @@ var win_memoize_use = _.memoize(function(n){
 
 ----
 
-## Underscode
+## Underscore
 - Functions for collection manipulation
 - Functions for Array  manipulation
 - Functions for Object manipulation
@@ -493,7 +493,7 @@ _(pokemons).countBy(function(pokemon){return pokemon.type[0]});
 
 ---
 
-##### Functions that receive functions and return functions that you can use to compose your functions
+##### Functions for manipulating, eh, functions
 
 - bind
 
@@ -512,7 +512,7 @@ praise_bauba()
 
 ----
 
-##### Functions that receive functions and return functions that you can use to compose your functions
+##### Functions for manipulating, eh, functions
 
 - partial
 
@@ -536,7 +536,7 @@ var stronger_than_50_and_faster_than = _.partial(
 
 ----
 
-##### Functions that receive functions and return functions that you can use to compose your functions
+##### Functions for manipulating, eh, functions
 
 - Memoize
   - Explained in the beggining. Returns a memoized version of the function.
@@ -590,12 +590,32 @@ _.chain(pokemon).filter(hp_higher_than_100).
 
 - [Underscore page](http://www.avenuecode.com)
 - [Underscore Annotated Source Code](http://www.avenuecode.com): surprisingly simple and small!
-- [Kingdom of verbs](http://www.avenuecode.com)
-- Async Library (TODO)
-- Learn Haskell (TODO)
+- [Execution in the Kingdom of Nouns](http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html): A funny reading about Object Oriented vs Functional Programming.
+- [Async Library](https://github.com/caolan/async): "Async provides around 20 functions that include the usual 'functional' suspects (map, reduce, filter, each...) as well as some common patterns for asynchronous control flow (parallel, series, waterfall...)."
 
---- 
+----
 
-##Chalenges
 
-- Todo
+## Further reading
+
+  - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com): "the funkiest way to learn Haskell, which is the best functional programming language around.", but also a great way to better understand some concepts shown here, if you enjoyed it (: (Mostly chapters II and VI)
+
+---
+
+## Challenges
+
+- Make me a pokedex!!!
+  - I want to be able to search a pokemon by name (Ok, only perfect match you lazy guys!)
+  - I want to be able to filter only pokemons with hp between X and Y
+  - Same for whatever other attribute you consider important
+  - Another filter of your choice
+
+----
+
+## Challenges
+
+  - Three types of listing: compact, normal and extended. I trust your criteria of what to include in each.
+  - Show please some summarization of the results. Number of pokemons found, average attack, you decide.
+  - Do all the filtering, mapping, reducing and whatever you find fit with underscore.
+  - ???
+  - Profit!

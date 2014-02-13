@@ -1,7 +1,7 @@
 {
-  "title": "Talk template",
-  "description": "My awesome talk description",
-  "author": "Tiago Garcia",
-  "email": "tgarcia@avenuecode.com",
-  "date": "Feb 11th, 2014"
+  "title": "Functional Programming using Underscore",
+  "description": "Main concepts of functional programming and a brief overview of the underscore library.",
+  "author": "Cristopher Moreira da Silva  ",
+  "email": "csilva@avenuecode.com ",
+  "date": "Feb 13th, 2014"
 }
